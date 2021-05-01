@@ -19,7 +19,12 @@ square_points = np.array([[1, 1, -1, -1, 1],
                           [-1, 1, 1, -1, -1],
                           [1, 1, 1, 1, 1]])
 
-def ray_tracing_single_shape(T, array_points, sigma=0., max_range=np.inf):
+def ray_tracing_single_shape(T, array_points):
+    
+    
+    #ray = ray_origin - ray_head
+    
+    #T = rigid_tranformation((ray_origin[0], ray_origin[1], ray_angle))
     L = np.linalg.inv(T) @ array_points
     
     #ax.plot(L[0], L[1]);
@@ -32,9 +37,9 @@ def ray_tracing_single_shape(T, array_points, sigma=0., max_range=np.inf):
         dx = L[0,i] - L[0,i+1]
         dy = L[1,i] - L[1,i+1]
         if(dy != 0):
-            intersec[0,i] = L[0,i] - (dx/dy)*L[1,i] + np.random.normal(scale=sigma)
+            intersec[0,i] = L[0,i] - (dx/dy)*L[1,i]
         else:
-            intersec[0,i] = float("inf")
+            intersec[0,i] = L[0,i]
         intersec[1,i] = 0
         
         # is the point within the segment
@@ -45,11 +50,9 @@ def ray_tracing_single_shape(T, array_points, sigma=0., max_range=np.inf):
                   (intersec[0,i] >= bound_min))
 
         behind = (intersec[0,i] < 0)
-        too_far = (intersec[0,i] > max_range)
-        
-        if(outside or behind or too_far):
+        if(outside or behind):
             intersec[0:2,i] = [np.nan, np.nan]
-        
+
     closest_id = 0
     if(np.isfinite(intersec[0,:]).any()):
         closest_id = np.nanargmin(intersec[0,:])
@@ -61,11 +64,11 @@ def ray_tracing_single_shape(T, array_points, sigma=0., max_range=np.inf):
     
     return closest_hit
 
-def ray_tracing_multi_shape(T, list_shapes, sigma=0., max_range=np.inf):
+def ray_tracing_multi_shape(T, list_shapes):
     dist = np.inf
     closest_hit =[np.nan, np.nan, 1.]
     for shape in list_shapes:
-        current_shape_hit = ray_tracing_single_shape(T, shape, sigma, max_range)
+        current_shape_hit = ray_tracing_single_shape(T, shape)
         current_dist = np.linalg.norm(current_shape_hit-T[:,2])
         if(np.isfinite(current_dist) and current_dist < dist):
             dist = current_dist

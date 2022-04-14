@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import numpy as np
-from scripts.helper_func import *
+from helper_func import *
 
 S_points = np.array([[0., 3, 5, 5, 1.,  1,  3,  5,  5,  2,  0, 0, 4, 4, 2, 0, 0],
                      [0., 0, 2, 5, 9., 10, 12, 12, 13, 13, 11, 8, 4, 3, 1, 1, 0],

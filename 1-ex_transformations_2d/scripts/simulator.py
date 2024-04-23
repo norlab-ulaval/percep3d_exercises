@@ -76,28 +76,28 @@ def ray_tracing_multi_shape(T, list_shapes, sigma=0., max_range=np.inf):
 def generate_snake_head():
     p = np.array([-1., 0., 1.])
     snake_head = np.vstack([p, 
-                            rigid_tranformation((0, 0, np.pi/3.)) @ p, 
-                            rigid_tranformation((0, 0, (2*np.pi)/3.)) @ p, 
-                            rigid_tranformation((0, 0, np.pi)) @ p,
+                            rigid_transformation((0, 0, np.pi/3.)) @ p, 
+                            rigid_transformation((0, 0, (2*np.pi)/3.)) @ p, 
+                            rigid_transformation((0, 0, np.pi)) @ p,
                             [1., 1., 1.],
                             [0.25, 2.5, 1.],
                             [-0.25, 2.5, 1.],
                             [-1, 1, 1.]
                            ]).T
-    snake_head = rigid_tranformation((2., 0., -np.pi/2)) @ snake_head
+    snake_head = rigid_transformation((2., 0., -np.pi/2)) @ snake_head
 
     snake_hex = np.empty((0,3))
 
     for theta in np.linspace(0, 2.*np.pi, 7): 
-        snake_hex = np.vstack([snake_hex, rigid_tranformation((0,0,theta)) @ p])
+        snake_hex = np.vstack([snake_hex, rigid_transformation((0,0,theta)) @ p])
 
     snake_hex = snake_hex.T
-    snake_hex = rigid_tranformation((0., 0., -np.pi/2)) @ snake_hex
+    snake_hex = rigid_transformation((0., 0., -np.pi/2)) @ snake_hex
     snake_head_o = np.array([0,0,1.])
     
     return snake_head_o, snake_hex, snake_head
 
-def draw_snake_head(ax, head_parts, T = rigid_tranformation((0,0,0)), draw_frame=False):
+def draw_snake_head(ax, head_parts, T = rigid_transformation((0,0,0)), draw_frame=False):
     snake_head_o, snake_hex, snake_head = head_parts
     
     poly1 = T @ snake_head
@@ -121,30 +121,30 @@ def generate_snake_body():
     p = np.array([-1., 0., 1.])
 
     half_hex = np.vstack([p, 
-                        rigid_tranformation((0, 0, np.pi/3.)) @ p, 
-                        rigid_tranformation((0, 0, (2*np.pi)/3.)) @ p, 
-                        rigid_tranformation((0, 0, np.pi)) @ p
+                        rigid_transformation((0, 0, np.pi/3.)) @ p, 
+                        rigid_transformation((0, 0, (2*np.pi)/3.)) @ p, 
+                        rigid_transformation((0, 0, np.pi)) @ p
                          ]).T
 
     snake_body = np.vstack([half_hex.T,
                             [1., 1., 1.],
                             [3., 4., 1.],
-                            (rigid_tranformation((2,5,np.pi)) @ half_hex).T,
+                            (rigid_transformation((2,5,np.pi)) @ half_hex).T,
                             [1., 5., 1.],
                             [1., 4., 1.],
                             [0., 3., 1.],
                             [-1., 4., 1.],
                             [-1., 5., 1.],
-                            (rigid_tranformation((-2,5,np.pi)) @ half_hex).T,
+                            (rigid_transformation((-2,5,np.pi)) @ half_hex).T,
                             [-3., 4., 1.],
                             [-1., 1., 1.],
                            ]).T
 
-    snake_body = rigid_tranformation((0., 0., -np.pi/2)) @ snake_body
+    snake_body = rigid_transformation((0., 0., -np.pi/2)) @ snake_body
     snake_body_o = np.array([0,0,1.])
     return snake_body_o, snake_body
 
-def draw_snake_body(ax, body_parts, T = rigid_tranformation((0,0,0)), draw_frame=False):
+def draw_snake_body(ax, body_parts, T = rigid_transformation((0,0,0)), draw_frame=False):
     snake_body_o, snake_body = body_parts
     
     poly1 = T @ snake_body
@@ -163,16 +163,16 @@ def generate_snake_tail():
 
     snake_tail1 = np.empty((0,3))
     for theta in np.linspace(0, 2.*np.pi, 7): 
-        snake_tail1 = np.vstack([snake_tail1, rigid_tranformation((0,0,theta)) @ p])
+        snake_tail1 = np.vstack([snake_tail1, rigid_transformation((0,0,theta)) @ p])
 
     snake_tail1 = snake_tail1.T
 
-    snake_tail1 = rigid_tranformation((0., 0., -np.pi/2)) @ snake_tail1
-    snake_tail2 = rigid_tranformation((-2., 0., 0.)) @ snake_tail1
+    snake_tail1 = rigid_transformation((0., 0., -np.pi/2)) @ snake_tail1
+    snake_tail2 = rigid_transformation((-2., 0., 0.)) @ snake_tail1
     snake_tail_o = np.array([0,0,1.])
     return snake_tail_o, snake_tail1, snake_tail2
 
-def draw_snake_tail(ax, tail_parts, T = rigid_tranformation((0,0,0)), draw_frame=False):
+def draw_snake_tail(ax, tail_parts, T = rigid_transformation((0,0,0)), draw_frame=False):
     snake_tail_o, snake_tail1, snake_tail2 = tail_parts
     
     poly1 = T @ snake_tail1
@@ -195,21 +195,21 @@ def generate_snake_rattle():
     p = np.array([-1., 0., 1.])
 
     snake_rattle = np.vstack([p, 
-                          rigid_tranformation((0, 0, np.pi/3.)) @ p, 
-                          rigid_tranformation((0, 0, (2*np.pi)/3.)) @ p, 
-                          rigid_tranformation((0, 0, np.pi)) @ p,
+                          rigid_transformation((0, 0, np.pi/3.)) @ p, 
+                          rigid_transformation((0, 0, (2*np.pi)/3.)) @ p, 
+                          rigid_transformation((0, 0, np.pi)) @ p,
                           [1.,1.,1.],
                           [0.,3.,1.],
                           [-1.,1.,1.]
                          ]).T
 
-    snake_rattle = rigid_tranformation((0., 0., np.pi/2)) @ snake_rattle
+    snake_rattle = rigid_transformation((0., 0., np.pi/2)) @ snake_rattle
     
     snake_rattle_o = np.array([0,0,1.])
     
     return snake_rattle_o, snake_rattle
 
-def draw_snake_rattle(ax, rattle_parts, T = rigid_tranformation((0,0,0)), draw_frame=False):
+def draw_snake_rattle(ax, rattle_parts, T = rigid_transformation((0,0,0)), draw_frame=False):
     snake_rattle_o, snake_rattle = rattle_parts
     
     poly1 = T @ snake_rattle
@@ -228,13 +228,13 @@ def generate_snake_eye():
                           [0.,2.,1.]
                          ]).T
     s = 0.3
-    snake_eye = scale_tranformation((s,s)) @ snake_eye
+    snake_eye = scale_transformation((s,s)) @ snake_eye
     
     snake_eye_o = np.array([0,0,1.])
     
     return snake_eye_o, snake_eye
 
-def draw_snake_eye(ax, eye_parts, T=rigid_tranformation((0,0,0)), draw_frame=False):
+def draw_snake_eye(ax, eye_parts, T=rigid_transformation((0,0,0)), draw_frame=False):
     snake_eye_o, snake_eye = eye_parts
     
     poly1 = T @ snake_eye

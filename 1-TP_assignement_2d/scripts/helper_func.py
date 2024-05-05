@@ -53,7 +53,7 @@ def clean_frame(ax, data, title, pad=1):
     plt.tight_layout()
     return
 
-def draw_arc_arrow(ax, angle_, theta2_, center=(0., 0.), text="", text_offset=(0., 0.), radius=1., color='white', is_rad=True, flip=False):
+def draw_arc_arrow(ax, angle_, theta2_, center=(0., 0.), text="", text_offset=(0., 0.), radius=1., color='blue', is_rad=True, flip=False):
 
     if(is_rad):
         angle_ = deg(angle_)
@@ -85,8 +85,8 @@ def draw_arc_arrow(ax, angle_, theta2_, center=(0., 0.), text="", text_offset=(0
         RegularPolygon(
             (endX, endY),            # (x,y)
             3,                       # number of vertices
-            arrow_scale,                # radius
-            rad(head_angle),     # orientation
+            radius=arrow_scale,                # radius
+            orientation=rad(head_angle),     # orientation
             color=color
         )
     )

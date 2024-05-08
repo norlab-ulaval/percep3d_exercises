@@ -107,10 +107,10 @@ def draw_snake_head(ax, head_parts, T = rigid_transformation((0,0,0)), draw_fram
     poly2 = T @ snake_hex
     o     = T @ snake_head_o
     
-    polygone1 = plt.Polygon(poly1[0:2,:].T, color='white', alpha=0.2)
+    polygone1 = plt.Polygon(poly1[0:2,:].T, color='green', alpha=0.2)
     ax.add_patch(polygone1)
     
-    polygone2 = plt.Polygon(poly2[0:2,:].T, color='white', alpha=0.2)
+    polygone2 = plt.Polygon(poly2[0:2,:].T, color='green', alpha=0.2)
     ax.add_patch(polygone2)
     
     if(draw_frame):
@@ -152,7 +152,7 @@ def draw_snake_body(ax, body_parts, T = rigid_transformation((0,0,0)), draw_fram
     
     poly1 = T @ snake_body
     o     = T @ snake_body_o
-    polygone = plt.Polygon(poly1[0:2,:].T, color='white', alpha=0.2)
+    polygone = plt.Polygon(poly1[0:2,:].T, color='green', alpha=0.2)
     ax.add_patch(polygone)
     if(draw_frame):
         draw_frame(ax, origin=o[0:2], text_x=r"$\vec{\mathscr{x}}$", color = "tab:blue")
@@ -182,9 +182,9 @@ def draw_snake_tail(ax, tail_parts, T = rigid_transformation((0,0,0)), draw_fram
     poly2 = T @ snake_tail2
     o     = T @ snake_tail_o
     
-    polygone1 = plt.Polygon(poly1[0:2,:].T, color='white', alpha=0.2)
+    polygone1 = plt.Polygon(poly1[0:2,:].T, color='green', alpha=0.2)
     ax.add_patch(polygone1)
-    polygone2 = plt.Polygon(poly2[0:2,:].T, color='white', alpha=0.2)
+    polygone2 = plt.Polygon(poly2[0:2,:].T, color='green', alpha=0.2)
     ax.add_patch(polygone2)
     
     if(draw_frame):
@@ -218,7 +218,7 @@ def draw_snake_rattle(ax, rattle_parts, T = rigid_transformation((0,0,0)), draw_
     poly1 = T @ snake_rattle
     o     = T @ snake_rattle_o
     
-    polygone = plt.Polygon(poly1[0:2,:].T, color='white', alpha=0.2)
+    polygone = plt.Polygon(poly1[0:2,:].T, color='green', alpha=0.2)
     ax.add_patch(polygone)
     if(draw_frame):
         draw_frame(ax, origin=o[0:2], text_x=r"$\vec{\mathscr{x}}$", color = "tab:blue")
